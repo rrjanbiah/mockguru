@@ -11,7 +11,10 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.2.4"
+    "next": "15.2.4",
+    "papaparse": "^5.4.1",
+    "react-markdown": "^8.0.5",
+    "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "typescript": "^5",
@@ -22,6 +25,8 @@
     "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
-    "@eslint/eslintrc": "^3"
+    "@eslint/eslintrc": "^3",
+    "clsx": "^2.0.0",
+    "date-fns": "^2.30.0"
   }
 }
