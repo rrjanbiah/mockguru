@@ -72,7 +72,7 @@ export default function TestPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col"></div>
+    <div className="min-h-screen flex flex-col">
       {config?.timer && (
         <div className="sticky top-0 bg-white shadow-md z-10">
           <Timer />
