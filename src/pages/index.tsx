@@ -27,7 +27,7 @@ export default function IndexPage() {
   };
 
   return (
-    <div className="min-h-screen p-8 flex flex-col gap-8"></div>
+    <div className="min-h-screen p-8 flex flex-col gap-8">
       <h1 className="text-2xl font-bold">Mock Test Configuration</h1>
       <textarea
         className="w-full h-40 p-4 border rounded-md"
