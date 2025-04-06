@@ -21,8 +21,9 @@ export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) =>
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <div>
-        <label className="block font-medium">Pagination</label>
+        <label htmlFor="pagination" className="block font-medium">Pagination</label>
         <select
+          id="pagination"
           className="w-full p-2 border rounded-md"
           value={pagination}
           onChange={(e) => setPagination(e.target.value)}
@@ -34,18 +35,20 @@ export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) =>
         </select>
       </div>
       <div>
-        <label className="block font-medium">Timer</label>
-        <input
-          type="checkbox"
-          className="mr-2"
-          checked={timer}
-          onChange={(e) => setTimer(e.target.checked)}
-        />
-        Enable Timer
+        <label htmlFor="timer" className="block font-medium flex items-center gap-2">
+          <input
+            id="timer"
+            type="checkbox"
+            checked={timer}
+            onChange={(e) => setTimer(e.target.checked)}
+          />
+          Enable Timer
+        </label>
       </div>
       <div>
-        <label className="block font-medium">Show Answers</label>
+        <label htmlFor="showAnswers" className="block font-medium">Show Answers</label>
         <select
+          id="showAnswers"
           className="w-full p-2 border rounded-md"
           value={showAnswers}
           onChange={(e) => setShowAnswers(e.target.value)}
@@ -56,14 +59,15 @@ export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) =>
         </select>
       </div>
       <div>
-        <label className="block font-medium">Shuffle Questions</label>
-        <input
-          type="checkbox"
-          className="mr-2"
-          checked={shuffle}
-          onChange={(e) => setShuffle(e.target.checked)}
-        />
-        Shuffle
+        <label htmlFor="shuffle" className="block font-medium flex items-center gap-2">
+          <input
+            id="shuffle"
+            type="checkbox"
+            checked={shuffle}
+            onChange={(e) => setShuffle(e.target.checked)}
+          />
+          Shuffle
+        </label>
       </div>
       <button
         type="submit"
