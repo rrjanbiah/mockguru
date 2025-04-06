@@ -19,26 +19,14 @@ export default function TestPage() {
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string[] }>({});
 
   useEffect(() => {
-    const queryData = router.query.data;
-    if (queryData) {
-      try {
-        const decodedData = JSON.parse(decodeURIComponent(queryData as string));
-        setQuestions(decodedData.questions);
-        setConfig(decodedData.config);
-      } catch {
-        alert("Invalid test data. Redirecting to home.");
-        router.push("/");
-      }
+    const localData = localStorage.getItem("testData");
+    if (localData) {
+      const parsedData = JSON.parse(localData);
+      setQuestions(parsedData.questions);
+      setConfig(parsedData.config);
     } else {
-      const localData = localStorage.getItem("testData");
-      if (localData) {
-        const parsedData = JSON.parse(localData);
-        setQuestions(parsedData.questions);
-        setConfig(parsedData.config);
-      } else {
-        alert("No test data found. Redirecting to home.");
-        router.push("/");
-      }
+      alert("No test data found. Redirecting to home.");
+      router.push("/");
     }
   }, [router]);
 

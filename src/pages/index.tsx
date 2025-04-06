@@ -46,15 +46,15 @@ export default function IndexPage({ exams }: { exams: Exam[] }) {
       return;
     }
 
+    // Store questions and config in localStorage
+    localStorage.setItem("testData", JSON.stringify({ questions, config }));
+
+    // Clear any previous user answers or results
     localStorage.removeItem("userAnswers");
     localStorage.removeItem("testResult");
 
-    const payload = {
-      questions,
-      config,
-    };
-    const encodedPayload = encodeURIComponent(JSON.stringify(payload));
-    router.push(`/test?data=${encodedPayload}`);
+    // Navigate to the test page
+    router.push("/test");
   };
 
   return (
