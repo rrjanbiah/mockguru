@@ -85,13 +85,24 @@ export default function TestPage() {
   };
 
   const handleNext = () => {
-    if (config?.pagination === "1/question" && currentPage < questions.length - 1) {
-      setCurrentPage((prev) => prev + 1);
-    } else if (
-      (config?.pagination === "5/group" && currentPage < Math.ceil(questions.length / 5) - 1) ||
-      (config?.pagination === "10/group" && currentPage < Math.ceil(questions.length / 10) - 1) ||
-      (config?.pagination === "section-wise" && currentPage < new Set(questions.map((q) => q.section)).size - 1)
-    ) {
+    const isLastQuestion =
+      config?.pagination === "1/question" && currentPage >= questions.length - 1;
+
+    const isLastGroup =
+      (config?.pagination === "5/group" &&
+        currentPage >= Math.ceil(questions.length / 5) - 1) ||
+      (config?.pagination === "10/group" &&
+        currentPage >= Math.ceil(questions.length / 10) - 1);
+
+    const isLastSection =
+      config?.pagination === "section-wise" &&
+      currentPage >= new Set(questions.map((q) => q.section)).size - 1;
+
+    if (isLastQuestion || isLastGroup || isLastSection) {
+      // Navigate to the result page after the last question or group
+      localStorage.setItem("testResult", JSON.stringify({ questions, userAnswers }));
+      router.push("/result");
+    } else {
       setCurrentPage((prev) => prev + 1);
     }
   };
@@ -118,10 +129,7 @@ export default function TestPage() {
         </button>
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded-md"
-          onClick={handleNext}
-          disabled={
-            config?.pagination === "1/question" && currentPage >= questions.length - 1
-          }
+          onClick={handleNext} // Always allow the button to be clicked
         >
           Next
         </button>
