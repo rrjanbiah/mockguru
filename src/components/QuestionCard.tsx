@@ -41,6 +41,7 @@ export default function QuestionCard({
                 checked={selectedOptions.includes(option)}
                 onChange={() => handleOptionChange(option)}
               />
+              <strong>{String.fromCharCode(65 + index)}. </strong>
               {option}
             </label>
           </li>
