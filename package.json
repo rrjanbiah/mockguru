@@ -9,6 +9,7 @@
     "lint": "next lint --max-warnings=0 && tsc --noEmit"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "gray-matter": "^4.0.3",
     "katex": "^0.16.21",
     "next": "15.2.4",

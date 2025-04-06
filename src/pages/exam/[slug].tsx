@@ -13,12 +13,12 @@ export default function ExamPage({
   frontmatter: { title: string; description: string };
 }) {
   return (
-    <div className="min-h-screen p-8">
+    <div className="min-h-screen p-8 bg-gray-50">
       <Head>
         <title>{frontmatter.title}</title>
         <meta name="description" content={frontmatter.description} />
       </Head>
-      <article className="prose prose-lg max-w-none">
+      <article className="prose prose-lg max-w-none mx-auto">
         <ReactMarkdown>{content}</ReactMarkdown>
       </article>
     </div>
