@@ -4,12 +4,18 @@ import QuestionCard from "@/components/QuestionCard";
 import Timer from "@/components/Timer";
 import { Question } from "@/utils/types";
 
+type Config = {
+  pagination: string;
+  timer: boolean;
+  showAnswers: string;
+  shuffle: boolean;
+};
+
 export default function TestPage() {
   const router = useRouter();
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [config, setConfig] = useState<any>(null);
+  const [config, setConfig] = useState<Config | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<Record<number, string[]>>({});
 
   useEffect(() => {
     const queryData = router.query.data;

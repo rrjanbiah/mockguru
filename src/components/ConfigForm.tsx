@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-export default function ConfigForm({ onSubmit }: { onSubmit: (config: Record<string, any>) => void }) {
+type Config = {
+  pagination: string;
+  timer: boolean;
+  showAnswers: string;
+  shuffle: boolean;
+};
+
+export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) => void }) {
   const [pagination, setPagination] = useState("1/question");
   const [timer, setTimer] = useState(false);
   const [showAnswers, setShowAnswers] = useState("never");

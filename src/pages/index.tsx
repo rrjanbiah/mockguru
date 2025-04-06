@@ -3,6 +3,13 @@ import { useRouter } from "next/router";
 import ConfigForm from "@/components/ConfigForm";
 import { parseCsv } from "@/utils/parseCsv";
 
+type Config = {
+  pagination: string;
+  timer: boolean;
+  showAnswers: string;
+  shuffle: boolean;
+};
+
 export default function IndexPage() {
   const [input, setInput] = useState("");
   const [questions, setQuestions] = useState([]);
@@ -12,12 +19,12 @@ export default function IndexPage() {
     try {
       const parsed = parseCsv(input).data;
       setQuestions(parsed);
-    } catch (error) {
+    } catch {
       alert("Invalid CSV format. Please check your input.");
     }
   };
 
-  const handleSubmit = (config: Record<string, any>) => {
+  const handleSubmit = (config: Config) => {
     const payload = {
       questions,
       config,
