@@ -16,13 +16,19 @@ export default function TestPage() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [config, setConfig] = useState<Config | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<{ [key: number]: string[] }>({});
 
   useEffect(() => {
     const queryData = router.query.data;
     if (queryData) {
-      const decodedData = JSON.parse(decodeURIComponent(queryData as string));
-      setQuestions(decodedData.questions);
-      setConfig(decodedData.config);
+      try {
+        const decodedData = JSON.parse(decodeURIComponent(queryData as string));
+        setQuestions(decodedData.questions);
+        setConfig(decodedData.config);
+      } catch {
+        alert("Invalid test data. Redirecting to home.");
+        router.push("/");
+      }
     } else {
       const localData = localStorage.getItem("testData");
       if (localData) {
@@ -36,8 +42,17 @@ export default function TestPage() {
     }
   }, [router]);
 
+  useEffect(() => {
+    const savedAnswers = localStorage.getItem("userAnswers");
+    if (savedAnswers) {
+      setUserAnswers(JSON.parse(savedAnswers)); // Load saved answers
+    }
+  }, []);
+
   const handleAnswer = (questionIndex: number, answer: string[]) => {
-    setUserAnswers((prev) => ({ ...prev, [questionIndex]: answer }));
+    const updatedAnswers = { ...userAnswers, [questionIndex]: answer };
+    setUserAnswers(updatedAnswers);
+    localStorage.setItem("userAnswers", JSON.stringify(updatedAnswers)); // Persist answers
   };
 
   const renderQuestions = () => {
@@ -70,7 +85,15 @@ export default function TestPage() {
   };
 
   const handleNext = () => {
-    setCurrentPage((prev) => prev + 1);
+    if (config?.pagination === "1/question" && currentPage < questions.length - 1) {
+      setCurrentPage((prev) => prev + 1);
+    } else if (
+      (config?.pagination === "5/group" && currentPage < Math.ceil(questions.length / 5) - 1) ||
+      (config?.pagination === "10/group" && currentPage < Math.ceil(questions.length / 10) - 1) ||
+      (config?.pagination === "section-wise" && currentPage < new Set(questions.map((q) => q.section)).size - 1)
+    ) {
+      setCurrentPage((prev) => prev + 1);
+    }
   };
 
   const handlePrevious = () => {
