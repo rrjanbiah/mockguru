@@ -5,6 +5,8 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 import { Question } from "@/utils/types";
+import Link from "next/link";
+import Head from "next/head";
 
 export default function ResultPage() {
   const router = useRouter();
@@ -102,6 +104,9 @@ export default function ResultPage() {
 
   return (
     <div className="min-h-screen p-8 flex flex-col gap-8">
+      <Head>
+        <title>MockGuru - Test Results</title>
+      </Head>
       <h1 className="text-2xl font-bold">Test Results</h1>
       {/* Scoring Section */}
       <div className="p-4 bg-gray-100 rounded-md shadow-sm">
@@ -202,6 +207,9 @@ export default function ResultPage() {
       >
         Copy this result as markdown
       </button>
+      <Link href="/" className="mt-4 text-blue-500 hover:underline text-center">
+        Go back to the homepage
+      </Link>
       <style jsx global>{`
         @media print {
           body {

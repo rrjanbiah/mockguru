@@ -1,17 +1,28 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import Head from "next/head";
 import ConfigForm from "@/components/ConfigForm";
 import { parseCsv } from "@/utils/parseCsv";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 import { Question } from "@/utils/types";
 
 type Config = {
   pagination: string;
   timer: boolean;
-  timerDuration: number; // Match ConfigForm
+  timerDuration: number;
   shuffle: boolean;
 };
 
-export default function IndexPage() {
+type Exam = {
+  slug: string;
+  title: string;
+  description: string;
+};
+
+export default function IndexPage({ exams }: { exams: Exam[] }) {
   const [input, setInput] = useState("");
   const [questions, setQuestions] = useState<Question[]>([]);
   const router = useRouter();
@@ -35,7 +46,6 @@ export default function IndexPage() {
       return;
     }
 
-    // Clear previous session data
     localStorage.removeItem("userAnswers");
     localStorage.removeItem("testResult");
 
@@ -49,7 +59,10 @@ export default function IndexPage() {
 
   return (
     <div className="min-h-screen p-8 flex flex-col gap-8">
-      <h1 className="text-2xl font-bold">Mock Test Configuration</h1>
+      <Head>
+        <title>MockGuru - Home</title>
+      </Head>
+      <h1 className="text-3xl font-bold text-center">MockGuru</h1>
       <textarea
         className="w-full h-40 p-4 border rounded-md"
         placeholder="Paste your CSV of questions here. Ensure it follows the required format."
@@ -86,8 +99,43 @@ export default function IndexPage() {
             ))}
           </ul>
           <ConfigForm onSubmit={handleSubmit} />
+          <hr />
         </div>
       )}
+      <h2 className="text-xl font-semibold mt-4">Exams</h2>
+      <ul className="list-disc pl-6">
+        {exams.map((exam) => (
+          <li key={exam.slug} className="mb-2">
+            <Link href={`/exam/${exam.slug}`} className="text-blue-500 hover:underline">
+              {exam.title}
+            </Link>
+            <p className="text-sm text-gray-600">{exam.description}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const examsDir = path.join(process.cwd(), "src/content/exams");
+  const filenames = fs.readdirSync(examsDir);
+
+  const exams = filenames.map((filename) => {
+    const filePath = path.join(examsDir, filename);
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const { data } = matter(fileContent);
+
+    return {
+      slug: filename.replace(".md", ""),
+      title: data.title || "Untitled Exam",
+      description: data.description || "No description available.",
+    };
+  });
+
+  return {
+    props: {
+      exams,
+    },
+  };
 }

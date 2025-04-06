@@ -18,7 +18,7 @@ export default function ExamPage({
         <title>{frontmatter.title}</title>
         <meta name="description" content={frontmatter.description} />
       </Head>
-      <article className="prose">
+      <article className="prose prose-lg max-w-none">
         <ReactMarkdown>{content}</ReactMarkdown>
       </article>
     </div>
