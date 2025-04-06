@@ -32,6 +32,36 @@ export default function ResultPage() {
     );
   }).length;
 
+  const calculateScoresBy = (key: "section" | "subject") => {
+    const groupedScores: Record<string, { correct: number; total: number }> = {};
+
+    questions.forEach((q, index) => {
+      const groupKey = q[key] || "N/A";
+      if (!groupedScores[groupKey]) {
+        groupedScores[groupKey] = { correct: 0, total: 0 };
+      }
+
+      const userAnswer = userAnswers[index] || [];
+      const correctAnswerTexts = q.correctOptions.map(
+        (opt) => q.options[opt.charCodeAt(0) - 65]
+      );
+
+      groupedScores[groupKey].total += 1;
+      if (
+        userAnswer.length > 0 &&
+        correctAnswerTexts.every((text) => userAnswer.includes(text)) &&
+        userAnswer.length === correctAnswerTexts.length
+      ) {
+        groupedScores[groupKey].correct += 1;
+      }
+    });
+
+    return groupedScores;
+  };
+
+  const sectionScores = calculateScoresBy("section");
+  const subjectScores = calculateScoresBy("subject");
+
   const copyAsMarkdown = () => {
     const markdown = questions
       .map((q, index) => {
@@ -83,6 +113,24 @@ export default function ResultPage() {
             {((correctAnswersCount / questions.length) * 100).toFixed(2)}%
           </strong>
         </p>
+        <h3 className="text-xl font-bold mt-4">Scores by Section</h3>
+        <ul className="list-disc pl-6">
+          {Object.entries(sectionScores).map(([section, score]) => (
+            <li key={section}>
+              <strong>{section}:</strong> {score.correct} / {score.total} (
+              {((score.correct / score.total) * 100).toFixed(2)}%)
+            </li>
+          ))}
+        </ul>
+        <h3 className="text-xl font-bold mt-4">Scores by Subject</h3>
+        <ul className="list-disc pl-6">
+          {Object.entries(subjectScores).map(([subject, score]) => (
+            <li key={subject}>
+              <strong>{subject}:</strong> {score.correct} / {score.total} (
+              {((score.correct / score.total) * 100).toFixed(2)}%)
+            </li>
+          ))}
+        </ul>
       </div>
       <div className="flex flex-col gap-4">
         {questions.map((q, index) => {

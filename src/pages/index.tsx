@@ -7,7 +7,7 @@ import { Question } from "@/utils/types";
 type Config = {
   pagination: string;
   timer: boolean;
-  showAnswers: string;
+  timerDuration: number; // Match ConfigForm
   shuffle: boolean;
 };
 

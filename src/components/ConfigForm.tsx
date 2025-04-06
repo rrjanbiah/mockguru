@@ -4,7 +4,6 @@ type Config = {
   pagination: string;
   timer: boolean;
   timerDuration: number; // Added timer duration
-  showAnswers: string;
   shuffle: boolean;
 };
 
@@ -12,12 +11,11 @@ export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) =>
   const [pagination, setPagination] = useState("1/question");
   const [timer, setTimer] = useState(false);
   const [timerDuration, setTimerDuration] = useState(5); // Default to 5 minutes
-  const [showAnswers, setShowAnswers] = useState("never");
   const [shuffle, setShuffle] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ pagination, timer, timerDuration, showAnswers, shuffle });
+    onSubmit({ pagination, timer, timerDuration, shuffle });
   };
 
   return (
@@ -59,19 +57,6 @@ export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) =>
             />
           </div>
         )}
-      </div>
-      <div>
-        <label htmlFor="showAnswers" className="block font-medium">Show Answers</label>
-        <select
-          id="showAnswers"
-          className="w-full p-2 border rounded-md"
-          value={showAnswers}
-          onChange={(e) => setShowAnswers(e.target.value)}
-        >
-          <option value="after each">After Each</option>
-          <option value="at end">At End</option>
-          <option value="never">Never</option>
-        </select>
       </div>
       <div>
         <label htmlFor="shuffle" className="block font-medium flex items-center gap-2">
