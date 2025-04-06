@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import ConfigForm from "@/components/ConfigForm";
 import { parseCsv } from "@/utils/parseCsv";
+import { Question } from "@/utils/types";
 
 type Config = {
   pagination: string;
@@ -12,12 +13,12 @@ type Config = {
 
 export default function IndexPage() {
   const [input, setInput] = useState("");
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const router = useRouter();
 
   const handleParse = () => {
     try {
-      const parsed = parseCsv(input).data;
+      const parsed = parseCsv(input);
       setQuestions(parsed);
     } catch {
       alert("Invalid CSV format. Please check your input.");
@@ -25,6 +26,10 @@ export default function IndexPage() {
   };
 
   const handleSubmit = (config: Config) => {
+    if (questions.length === 0) {
+      alert("No questions parsed. Please provide valid input.");
+      return;
+    }
     const payload = {
       questions,
       config,
