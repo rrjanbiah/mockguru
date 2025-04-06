@@ -15,20 +15,26 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "preserve", // Use "react-jsx" for React 17+ or "react" for older versions
     "incremental": true,
     "paths": {
-      "react-markdown": ["./node_modules/@types/empty-module"], // Map react-markdown to an empty module
+      "react-markdown": [
+        "./node_modules/react-markdown"
+      ], // Correctly map to the actual module
       "@/*": [
         "./src/*"
       ]
     },
-    "types": ["react"]
+    "types": [
+      "react",
+      "react-dom"
+    ] // Ensure React types are included
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

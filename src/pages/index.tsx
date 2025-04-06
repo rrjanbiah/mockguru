@@ -20,8 +20,12 @@ export default function IndexPage() {
     try {
       const parsed = parseCsv(input);
       setQuestions(parsed);
-    } catch {
-      alert("Invalid CSV format. Please check your input.");
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message || "Invalid CSV format. Please check your input.");
+      } else {
+        alert("An unknown error occurred.");
+      }
     }
   };
 
@@ -48,7 +52,7 @@ export default function IndexPage() {
       <h1 className="text-2xl font-bold">Mock Test Configuration</h1>
       <textarea
         className="w-full h-40 p-4 border rounded-md"
-        placeholder="Paste your CSV or markdown-style MCQs here..."
+        placeholder="Paste your CSV of questions here. Ensure it follows the required format."
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
@@ -59,7 +63,30 @@ export default function IndexPage() {
         Parse Questions
       </button>
       {questions.length > 0 && (
-        <ConfigForm onSubmit={handleSubmit} />
+        <div>
+          <h2 className="text-xl font-bold mt-4">Parsed Questions</h2>
+          <ul className="list-disc pl-6">
+            {questions.map((q, index) => (
+              <li key={index} className="mb-2">
+                <strong>Q{index + 1}:</strong> {q.question}
+                <ul className="list-disc pl-6">
+                  {q.options.map((option, optIndex) => (
+                    <li key={optIndex}>
+                      <strong>{String.fromCharCode(65 + optIndex)}. </strong>
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+                {q.explanation && (
+                  <p className="mt-2">
+                    <strong>Explanation:</strong> {q.explanation}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+          <ConfigForm onSubmit={handleSubmit} />
+        </div>
       )}
     </div>
   );

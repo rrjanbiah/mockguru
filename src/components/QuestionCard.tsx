@@ -1,16 +1,21 @@
 import { Question } from "@/utils/types";
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import remarkGfm from "remark-gfm"; // Add support for GitHub-flavored markdown
+import "katex/dist/katex.min.css";
 
 export default function QuestionCard({
   question,
-  currentQuestion = 0, // Default to 0 if not provided
-  totalQuestions = 1, // Default to 1 if not provided
+  currentQuestion = 0,
+  totalQuestions = 1,
   onAnswer,
 }: {
   question: Question;
-  currentQuestion: number; // 0-based index
+  currentQuestion: number;
   totalQuestions: number;
-  onAnswer?: (answer: string[]) => void; // Make onAnswer optional
+  onAnswer?: (answer: string[]) => void;
 }) {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
@@ -27,7 +32,7 @@ export default function QuestionCard({
 
     setSelectedOptions(updatedOptions);
     if (onAnswer) {
-      onAnswer(updatedOptions); // Call onAnswer only if it exists
+      onAnswer(updatedOptions);
     }
   };
 
@@ -48,7 +53,14 @@ export default function QuestionCard({
           ></div>
         </div>
       </div>
-      <h2 className="font-medium mb-4">{question.question}</h2>
+      <h2 className="font-medium mb-4">
+        <ReactMarkdown
+          rehypePlugins={[rehypeKatex]}
+          remarkPlugins={[remarkMath, remarkGfm]} // Ensure both math and markdown plugins are included
+        >
+          {question.question}
+        </ReactMarkdown>
+      </h2>
       <ul className="list-none">
         {question.options.map((option, index) => (
           <li key={index} className="mb-2">
@@ -60,8 +72,12 @@ export default function QuestionCard({
                 checked={selectedOptions.includes(option)}
                 onChange={() => handleOptionChange(option)}
               />
-              <strong>{String.fromCharCode(65 + index)}. </strong>
-              {option}
+              <ReactMarkdown
+                rehypePlugins={[rehypeKatex]}
+                remarkPlugins={[remarkMath, remarkGfm]}
+              >
+                {`${String.fromCharCode(65 + index)}. ${option}`}
+              </ReactMarkdown>
             </label>
           </li>
         ))}

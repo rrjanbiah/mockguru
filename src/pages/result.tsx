@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import "katex/dist/katex.min.css";
 import { Question } from "@/utils/types";
 
 export default function ResultPage() {
@@ -148,8 +151,11 @@ export default function ResultPage() {
               key={index}
               className="p-4 border rounded-md shadow-sm bg-white print:border-none print:shadow-none"
             >
-              <h2 className="font-medium">Question {index + 1}</h2>
-              <p>{q.question}</p>
+              <h2 className="font-medium">
+                <ReactMarkdown rehypePlugins={[rehypeKatex]} remarkPlugins={[remarkMath]}>
+                  {q.question}
+                </ReactMarkdown>
+              </h2>
               <ul className="list-none space-y-2 mt-2">
                 {q.options.map((option, optIndex) => (
                   <li
@@ -162,10 +168,9 @@ export default function ResultPage() {
                         : "bg-gray-100"
                     }`}
                   >
-                    <strong>{String.fromCharCode(65 + optIndex)}. </strong>
-                    {option}
-                    {correctAnswerTexts.includes(option) && " (Correct)"}
-                    {userAnswer.includes(option) && " (Your Choice)"}
+                    <ReactMarkdown rehypePlugins={[rehypeKatex]} remarkPlugins={[remarkMath]}>
+                      {`${String.fromCharCode(65 + optIndex)}. ${option}`}
+                    </ReactMarkdown>
                   </li>
                 ))}
               </ul>
@@ -182,7 +187,7 @@ export default function ResultPage() {
               {q.explanation && (
                 <div className="mt-4">
                   <strong>Explanation:</strong>
-                  <ReactMarkdown className="prose">
+                  <ReactMarkdown rehypePlugins={[rehypeKatex]} remarkPlugins={[remarkMath]}>
                     {q.explanation}
                   </ReactMarkdown>
                 </div>
