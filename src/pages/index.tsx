@@ -30,6 +30,11 @@ export default function IndexPage() {
       alert("No questions parsed. Please provide valid input.");
       return;
     }
+
+    // Clear previous session data
+    localStorage.removeItem("userAnswers");
+    localStorage.removeItem("testResult");
+
     const payload = {
       questions,
       config,

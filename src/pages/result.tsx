@@ -13,7 +13,7 @@ export default function ResultPage() {
     if (localData) {
       const parsedData = JSON.parse(localData);
       setQuestions(parsedData.questions);
-      setUserAnswers(parsedData.userAnswers);
+      setUserAnswers(parsedData.userAnswers || {}); // Ensure userAnswers is initialized
     } else {
       alert("No result data found. Redirecting to home.");
       router.push("/");
@@ -21,11 +21,12 @@ export default function ResultPage() {
   }, [router]);
 
   const correctAnswersCount = questions.filter((q, index) => {
-    const userAnswer = userAnswers[index] || [];
+    const userAnswer = userAnswers[index] || []; // Default to empty array for skipped questions
     const correctAnswerTexts = q.correctOptions.map(
       (opt) => q.options[opt.charCodeAt(0) - 65]
     );
     return (
+      userAnswer.length > 0 && // Ensure the question was answered
       correctAnswerTexts.every((text) => userAnswer.includes(text)) &&
       userAnswer.length === correctAnswerTexts.length
     );
@@ -34,11 +35,12 @@ export default function ResultPage() {
   const copyAsMarkdown = () => {
     const markdown = questions
       .map((q, index) => {
-        const userAnswer = userAnswers[index] || [];
+        const userAnswer = userAnswers[index] || []; // Default to empty array for skipped questions
         const correctAnswerTexts = q.correctOptions.map(
           (opt) => q.options[opt.charCodeAt(0) - 65]
         );
         const isCorrect =
+          userAnswer.length > 0 && // Ensure the question was answered
           correctAnswerTexts.every((text) => userAnswer.includes(text)) &&
           userAnswer.length === correctAnswerTexts.length;
 
@@ -52,7 +54,11 @@ export default function ResultPage() {
           .join("\n");
 
         return `### Q${index + 1}: ${q.question}\n\n**Options:**\n${optionsWithLabels}\n\n**Result:** ${
-          isCorrect ? "✅ Correct" : "❌ Incorrect"
+          userAnswer.length === 0
+            ? "⚠️ Skipped"
+            : isCorrect
+            ? "✅ Correct"
+            : "❌ Incorrect"
         }${q.explanation ? `\n\n**Explanation:** ${q.explanation}` : ""}`;
       })
       .join("\n\n---\n\n");
@@ -80,11 +86,12 @@ export default function ResultPage() {
       </div>
       <div className="flex flex-col gap-4">
         {questions.map((q, index) => {
-          const userAnswer = userAnswers[index] || [];
+          const userAnswer = userAnswers[index] || []; // Default to empty array for skipped questions
           const correctAnswerTexts = q.correctOptions.map(
             (opt) => q.options[opt.charCodeAt(0) - 65]
           );
           const isCorrect =
+            userAnswer.length > 0 && // Ensure the question was answered
             correctAnswerTexts.every((text) => userAnswer.includes(text)) &&
             userAnswer.length === correctAnswerTexts.length;
 
@@ -116,7 +123,9 @@ export default function ResultPage() {
               </ul>
               <p className="mt-4">
                 <strong>Result:</strong>{" "}
-                {isCorrect ? (
+                {userAnswer.length === 0 ? (
+                  <span className="text-yellow-600">⚠️ Skipped</span>
+                ) : isCorrect ? (
                   <span className="text-green-600">✅ Correct</span>
                 ) : (
                   <span className="text-red-600">❌ Incorrect</span>
