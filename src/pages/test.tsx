@@ -79,6 +79,8 @@ export default function TestPage() {
       <QuestionCard
         key={index}
         question={question}
+        currentQuestion={currentPage + index} // Fix: Remove the extra +1
+        totalQuestions={questions.length}
         onAnswer={(answer) => handleAnswer(currentPage + index, answer)}
       />
     ));

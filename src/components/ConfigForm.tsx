@@ -3,6 +3,7 @@ import { useState } from "react";
 type Config = {
   pagination: string;
   timer: boolean;
+  timerDuration: number; // Added timer duration
   showAnswers: string;
   shuffle: boolean;
 };
@@ -10,12 +11,13 @@ type Config = {
 export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) => void }) {
   const [pagination, setPagination] = useState("1/question");
   const [timer, setTimer] = useState(false);
+  const [timerDuration, setTimerDuration] = useState(5); // Default to 5 minutes
   const [showAnswers, setShowAnswers] = useState("never");
   const [shuffle, setShuffle] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ pagination, timer, showAnswers, shuffle });
+    onSubmit({ pagination, timer, timerDuration, showAnswers, shuffle });
   };
 
   return (
@@ -44,6 +46,19 @@ export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) =>
           />
           Enable Timer
         </label>
+        {timer && (
+          <div className="mt-2">
+            <label htmlFor="timerDuration" className="block font-medium">Timer Duration (minutes)</label>
+            <input
+              id="timerDuration"
+              type="number"
+              className="w-full p-2 border rounded-md"
+              value={timerDuration}
+              min={1}
+              onChange={(e) => setTimerDuration(Number(e.target.value))}
+            />
+          </div>
+        )}
       </div>
       <div>
         <label htmlFor="showAnswers" className="block font-medium">Show Answers</label>
