@@ -1,6 +1,6 @@
 # 🧠 MockGuru
 
-**MockGuru** is a sleek, mobile-friendly mock test web app built with **Next.js (Pages Router)** and **Tailwind CSS**. It helps students prepare for competitive exams like **JEE, NEET, UPSC, BITSAT, STEP+**, and more by letting them upload or paste MCQs in CSV or markdown format, and take configurable tests with instant or end-of-test feedback.
+**MockGuru** is a sleek, mobile-friendly mock test web app built with **Next.js (Pages Router)** and **Tailwind CSS**. It helps students prepare for competitive exams like **BITSAT, JEE, NEET, SNUCEE, SNUSAT, SRMJEE, UPSC, VITEEE, STEP+**, and more by letting them upload or paste MCQs in CSV or markdown format, and take configurable tests with instant or end-of-test feedback.
 
 ---
 
@@ -23,5 +23,5 @@
 exam,section,subject,question,option_a,option_b,option_c,option_d,correct_option,explanation
 JEE,Physics,Mechanics,What is Newton's second law?,Force = mass x acceleration,Force = mass / acceleration,Velocity = mass x acceleration,Force = acceleration / mass,A,It's the fundamental principle of dynamics.
 ```
-Supports multiple correct options like `A,C`.
 
+Supports multiple correct options like `A,C`.
