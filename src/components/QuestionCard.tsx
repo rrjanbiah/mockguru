@@ -64,7 +64,10 @@ export default function QuestionCard({
       </h2>
       <ul className="list-none">
         {question.options.map((option, index) => (
-          <li key={index} className="mb-2">
+          <li
+            key={index}
+            className="mb-4 p-2 rounded-md hover:bg-gray-200 cursor-pointer transition-colors" // Added spacing, hover effect, and hand cursor
+          >
             <label className="flex items-center gap-2">
               <input
                 type={question.isMultipleChoice ? "checkbox" : "radio"} // Use checkbox for multi-choice

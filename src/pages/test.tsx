@@ -118,14 +118,14 @@ export default function TestPage() {
       <div className="flex-1 p-8">{renderQuestions()}</div>
       <div className="flex justify-between p-4">
         <button
-          className="px-4 py-2 bg-gray-300 rounded-md"
+          className="px-4 py-2 bg-gray-300 rounded-md cursor-pointer" // Added cursor-pointer
           onClick={handlePrevious}
           disabled={currentPage === 0}
         >
           Previous
         </button>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md"
+          className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer" // Added cursor-pointer
           onClick={handleNext}
         >
           Next

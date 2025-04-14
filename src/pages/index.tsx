@@ -77,7 +77,7 @@ export default function IndexPage({ exams }: { exams: Exam[] }) {
         onChange={(e) => setInput(e.target.value)}
       />
       <button
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer"
         onClick={handleParse}
       >
         Parse Questions
