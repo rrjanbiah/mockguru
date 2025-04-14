@@ -1,10 +1,12 @@
 {
   "name": "mockguru",
   "version": "0.1.0",
+  "homepage": "https://rrjanbiah.github.io/mockguru",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "lint": "next lint --max-warnings=0 && tsc --noEmit"
   },

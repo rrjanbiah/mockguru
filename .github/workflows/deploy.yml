@@ -1,0 +1,39 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Trigger the action on push to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2 # Check out the code from the repo
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2 # Set up Node.js environment
+        with:
+          node-version: "16" # Use Node.js version 16 (or change if needed)
+
+      - name: Install dependencies
+        run: |
+          npm install   # Install the dependencies
+
+      - name: Build and export the Next.js app
+        run: |
+          npm run build   # Build the Next.js app
+          npm run export   # Export the app as static files to 'out/'
+
+      - name: Add .nojekyll to prevent Jekyll interference
+        run: |
+          touch out/.nojekyll   # Prevent Jekyll from processing _next/ folder
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4 # Action to deploy to GitHub Pages
+        with:
+          branch: gh-pages # The target branch for GitHub Pages
+          folder: out # The folder to deploy (from 'next export')
+          token: ${{ secrets.GITHUB_TOKEN }} # GitHub token for authentication
