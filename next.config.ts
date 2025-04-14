@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const isGithubPages = process.env.DEPLOY_TARGET === "gh-pages";
+const isGithubPages = process.env.GITHUB_ACTIONS === "true"; // Check if running in GitHub Actions
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
