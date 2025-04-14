@@ -7,14 +7,14 @@ export default function Timer({
   duration: number;
   onTimerEnd: () => void;
 }) {
-  const [timeLeft, setTimeLeft] = useState(duration * 60); // Convert minutes to seconds
+  const [timeLeft, setTimeLeft] = useState(duration * 60);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          onTimerEnd(); // Notify parent when timer ends
+          onTimerEnd();
           return 0;
         }
         return prev - 1;

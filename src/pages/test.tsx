@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import QuestionCard from "@/components/QuestionCard";
 import Timer from "@/components/Timer";
 import { Question } from "@/utils/types";
-import "katex/dist/katex.min.css"; // Ensure KaTeX CSS is imported
+import "katex/dist/katex.min.css";
 
 type Config = {
   pagination: string;
@@ -34,18 +34,17 @@ export default function TestPage() {
   useEffect(() => {
     const savedAnswers = localStorage.getItem("userAnswers");
     if (savedAnswers) {
-      setUserAnswers(JSON.parse(savedAnswers)); // Load saved answers
+      setUserAnswers(JSON.parse(savedAnswers));
     }
   }, []);
 
   const handleAnswer = (questionIndex: number, answer: string[]) => {
     const updatedAnswers = { ...userAnswers, [questionIndex]: answer };
     setUserAnswers(updatedAnswers);
-    localStorage.setItem("userAnswers", JSON.stringify(updatedAnswers)); // Persist answers
+    localStorage.setItem("userAnswers", JSON.stringify(updatedAnswers));
   };
 
   const handleTimerEnd = () => {
-    // Save the test result and navigate to the result page
     localStorage.setItem("testResult", JSON.stringify({ questions, userAnswers }));
     router.push("/result");
   };
@@ -96,7 +95,6 @@ export default function TestPage() {
       currentPage >= new Set(questions.map((q) => q.section)).size - 1;
 
     if (isLastQuestion || isLastGroup || isLastSection) {
-      // Navigate to the result page after the last question or group
       localStorage.setItem("testResult", JSON.stringify({ questions, userAnswers }));
       router.push("/result");
     } else {
@@ -112,20 +110,20 @@ export default function TestPage() {
     <div className="min-h-screen flex flex-col">
       {config?.timer && (
         <div className="sticky top-0 bg-white shadow-md z-10">
-          <Timer duration={config.timerDuration} onTimerEnd={handleTimerEnd} /> {/* Use timerDuration from config */}
+          <Timer duration={config.timerDuration} onTimerEnd={handleTimerEnd} />
         </div>
       )}
       <div className="flex-1 p-8">{renderQuestions()}</div>
       <div className="flex justify-between p-4">
         <button
-          className="px-4 py-2 bg-gray-300 rounded-md cursor-pointer" // Added cursor-pointer
+          className="px-4 py-2 bg-gray-300 rounded-md cursor-pointer"
           onClick={handlePrevious}
           disabled={currentPage === 0}
         >
           Previous
         </button>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer" // Added cursor-pointer
+          className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer"
           onClick={handleNext}
         >
           Next
