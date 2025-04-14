@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 
-export default function Timer({ duration = 300 }: { duration?: number }) {
-  const [timeLeft, setTimeLeft] = useState(duration);
+export default function Timer({
+  duration,
+  onTimerEnd,
+}: {
+  duration: number;
+  onTimerEnd: () => void;
+}) {
+  const [timeLeft, setTimeLeft] = useState(duration * 60); // Convert minutes to seconds
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
+          onTimerEnd(); // Notify parent when timer ends
           return 0;
         }
         return prev - 1;
@@ -15,7 +22,7 @@ export default function Timer({ duration = 300 }: { duration?: number }) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [duration, onTimerEnd]);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);

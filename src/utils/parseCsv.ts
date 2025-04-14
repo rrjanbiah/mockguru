@@ -30,15 +30,18 @@ export function parseCsv(input: string): Question[] {
       row.option_d?.trim(),
     ].filter(Boolean); // Ensure no undefined or empty options
 
+    const correctOptions = row.correct_option.split(",").map((opt) => opt.trim());
+    const isMultipleChoice = correctOptions.length > 1; // Determine if it's a multi-choice question
+
     return {
       exam: row.exam?.trim() || "General",
       question: row.question?.trim() || "",
       options,
-      correctOptions: [row.correct_option?.trim()],
+      correctOptions,
       explanation: row.explanation?.trim() || "",
       section: row.section?.trim() || "General",
       subject: row.subject?.trim() || "General",
-      isMultipleChoice: false, // Default to false; update logic if needed
+      isMultipleChoice,
     };
   });
 }

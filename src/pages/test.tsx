@@ -3,11 +3,12 @@ import { useRouter } from "next/router";
 import QuestionCard from "@/components/QuestionCard";
 import Timer from "@/components/Timer";
 import { Question } from "@/utils/types";
+import "katex/dist/katex.min.css"; // Ensure KaTeX CSS is imported
 
 type Config = {
   pagination: string;
   timer: boolean;
-  showAnswers: string;
+  timerDuration: number;
   shuffle: boolean;
 };
 
@@ -43,6 +44,12 @@ export default function TestPage() {
     localStorage.setItem("userAnswers", JSON.stringify(updatedAnswers)); // Persist answers
   };
 
+  const handleTimerEnd = () => {
+    // Save the test result and navigate to the result page
+    localStorage.setItem("testResult", JSON.stringify({ questions, userAnswers }));
+    router.push("/result");
+  };
+
   const renderQuestions = () => {
     if (!config || questions.length === 0) return null;
 
@@ -67,7 +74,7 @@ export default function TestPage() {
       <QuestionCard
         key={index}
         question={question}
-        currentQuestion={currentPage + index} // Fix: Remove the extra +1
+        currentQuestion={currentPage + index}
         totalQuestions={questions.length}
         onAnswer={(answer) => handleAnswer(currentPage + index, answer)}
       />
@@ -105,7 +112,7 @@ export default function TestPage() {
     <div className="min-h-screen flex flex-col">
       {config?.timer && (
         <div className="sticky top-0 bg-white shadow-md z-10">
-          <Timer />
+          <Timer duration={config.timerDuration} onTimerEnd={handleTimerEnd} /> {/* Use timerDuration from config */}
         </div>
       )}
       <div className="flex-1 p-8">{renderQuestions()}</div>
@@ -119,7 +126,7 @@ export default function TestPage() {
         </button>
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded-md"
-          onClick={handleNext} // Always allow the button to be clicked
+          onClick={handleNext}
         >
           Next
         </button>

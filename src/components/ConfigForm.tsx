@@ -3,19 +3,29 @@ import { useState } from "react";
 type Config = {
   pagination: string;
   timer: boolean;
-  timerDuration: number; // Added timer duration
+  timerDuration: number;
   shuffle: boolean;
 };
 
 export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) => void }) {
-  const [pagination, setPagination] = useState("1/question");
-  const [timer, setTimer] = useState(false);
-  const [timerDuration, setTimerDuration] = useState(5); // Default to 5 minutes
-  const [shuffle, setShuffle] = useState(false);
+  const [config, setConfig] = useState<Config>({
+    pagination: "1/question",
+    timer: true,
+    timerDuration: 5,
+    shuffle: false,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { id, value, type, checked } = e.target as HTMLInputElement;
+    setConfig((prev) => ({
+      ...prev,
+      [id]: type === "checkbox" ? checked : id === "timerDuration" ? Number(value) : value,
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ pagination, timer, timerDuration, shuffle });
+    onSubmit(config);
   };
 
   return (
@@ -25,8 +35,8 @@ export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) =>
         <select
           id="pagination"
           className="w-full p-2 border rounded-md"
-          value={pagination}
-          onChange={(e) => setPagination(e.target.value)}
+          value={config.pagination}
+          onChange={handleChange}
         >
           <option value="1/question">1/question</option>
           <option value="5/group">5/group</option>
@@ -39,21 +49,21 @@ export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) =>
           <input
             id="timer"
             type="checkbox"
-            checked={timer}
-            onChange={(e) => setTimer(e.target.checked)}
+            checked={config.timer}
+            onChange={handleChange}
           />
           Enable Timer
         </label>
-        {timer && (
+        {config.timer && (
           <div className="mt-2">
             <label htmlFor="timerDuration" className="block font-medium">Timer Duration (minutes)</label>
             <input
               id="timerDuration"
               type="number"
               className="w-full p-2 border rounded-md"
-              value={timerDuration}
+              value={config.timerDuration}
               min={1}
-              onChange={(e) => setTimerDuration(Number(e.target.value))}
+              onChange={handleChange}
             />
           </div>
         )}
@@ -63,8 +73,8 @@ export default function ConfigForm({ onSubmit }: { onSubmit: (config: Config) =>
           <input
             id="shuffle"
             type="checkbox"
-            checked={shuffle}
-            onChange={(e) => setShuffle(e.target.checked)}
+            checked={config.shuffle}
+            onChange={handleChange}
           />
           Shuffle
         </label>

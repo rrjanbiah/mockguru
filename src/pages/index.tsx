@@ -62,7 +62,14 @@ export default function IndexPage({ exams }: { exams: Exam[] }) {
       <Head>
         <title>MockGuru - Home</title>
       </Head>
-      <h1 className="text-3xl font-bold text-center">MockGuru</h1>
+      <header className="flex justify-between items-center mb-8">
+        <Link href="/" className="text-blue-500 hover:underline">
+          <h1 className="text-3xl font-bold">MockGuru</h1>
+        </Link>
+        <Link href="/about" className="text-blue-500 hover:underline">
+          About
+        </Link>
+      </header>
       <textarea
         className="w-full h-40 p-4 border rounded-md"
         placeholder="Paste your CSV of questions here. Ensure it follows the required format."
@@ -77,7 +84,7 @@ export default function IndexPage({ exams }: { exams: Exam[] }) {
       </button>
       {questions.length > 0 && (
         <div>
-          <h2 className="text-xl font-bold mt-4">Parsed Questions</h2>
+          {/* <h2 className="text-xl font-bold mt-4">Parsed Questions</h2>
           <ul className="list-disc pl-6">
             {questions.map((q, index) => (
               <li key={index} className="mb-2">
@@ -97,7 +104,7 @@ export default function IndexPage({ exams }: { exams: Exam[] }) {
                 )}
               </li>
             ))}
-          </ul>
+          </ul> */}
           <ConfigForm onSubmit={handleSubmit} />
           <hr />
         </div>

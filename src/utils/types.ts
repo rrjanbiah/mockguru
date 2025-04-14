@@ -4,7 +4,7 @@ export type Question = {
   subject: string;
   question: string;
   options: string[];
-  correctOptions: string[];
-  explanation: string;
-  isMultipleChoice: boolean;
+  correctOptions: string[]; // Array to support multi-choice answers
+  explanation?: string;
+  isMultipleChoice: boolean; // Add this property to indicate multi-choice questions
 };

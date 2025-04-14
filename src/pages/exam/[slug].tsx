@@ -4,6 +4,8 @@ import matter from "gray-matter";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm"; // Ensure this import exists
+import Link from "next/link"; // Import Link from next/link
 
 export default function ExamPage({
   content,
@@ -13,14 +15,21 @@ export default function ExamPage({
   frontmatter: { title: string; description: string };
 }) {
   return (
-    <div className="min-h-screen p-8 bg-gray-50">
-      <Head>
-        <title>{frontmatter.title}</title>
-        <meta name="description" content={frontmatter.description} />
-      </Head>
-      <article className="prose prose-lg max-w-none mx-auto">
-        <ReactMarkdown>{content}</ReactMarkdown>
-      </article>
+    <div className="min-h-screen">
+      <header className="bg-blue-500 text-white p-4">
+          <Link href="/" className="text-xl font-bold hover:underline">
+            MockGuru
+          </Link>
+      </header>
+      <div className="p-8 bg-gray-50">
+        <Head>
+          <title>{frontmatter.title}</title>
+          <meta name="description" content={frontmatter.description} />
+        </Head>
+        <article className="prose prose-lg max-w-none mx-auto">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown> {/* Ensure remark-gfm is used */}
+        </article>
+      </div>
     </div>
   );
 }

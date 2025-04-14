@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
+import remarkGfm from "remark-gfm"; // Add this import for GitHub-flavored markdown
+import remarkBreaks from "remark-breaks"; // Import remark-breaks for handling line breaks
 import "katex/dist/katex.min.css";
 import { Question } from "@/utils/types";
 import Link from "next/link";
@@ -17,6 +19,7 @@ export default function ResultPage() {
     const localData = localStorage.getItem("testResult");
     if (localData) {
       const parsedData = JSON.parse(localData);
+      console.log("Parsed Questions:", parsedData.questions); // Debug: Log parsed questions
       setQuestions(parsedData.questions);
       setUserAnswers(parsedData.userAnswers || {}); // Ensure userAnswers is initialized
     } else {
@@ -30,10 +33,11 @@ export default function ResultPage() {
     const correctAnswerTexts = q.correctOptions.map(
       (opt) => q.options[opt.charCodeAt(0) - 65]
     );
+
     return (
       userAnswer.length > 0 && // Ensure the question was answered
-      correctAnswerTexts.every((text) => userAnswer.includes(text)) &&
-      userAnswer.length === correctAnswerTexts.length
+      correctAnswerTexts.every((text) => userAnswer.includes(text)) && // Check if all correct options are selected
+      userAnswer.length === correctAnswerTexts.length // Ensure no extra options are selected
     );
   }).length;
 
@@ -67,7 +71,9 @@ export default function ResultPage() {
   const sectionScores = calculateScoresBy("section");
   const subjectScores = calculateScoresBy("subject");
 
-  const copyAsMarkdown = () => {
+  const copyAsMarkdownWithPrompt = () => {
+    const chatGptPrompt = `I will give you a list of questions from a mock test, including the exam name, section, subject, my answer, the correct answer, and the explanation for each. Based on this, analyze my strengths and weaknesses. Identify which areas I’m strong in and which topics need improvement. Then, provide detailed recommendations to help me improve in the weak areas. Here is the data:\n\nTotal Questions: ${questions.length}\n\n\`\`\`\n`;
+
     const markdown = questions
       .map((q, index) => {
         const userAnswer = userAnswers[index] || []; // Default to empty array for skipped questions
@@ -88,18 +94,18 @@ export default function ResultPage() {
           )
           .join("\n");
 
-        return `### Q${index + 1}: ${q.question}\n\n**Options:**\n${optionsWithLabels}\n\n**Result:** ${
+        return `Q${index + 1}: ${q.question}\nExam: ${q.exam}\nSection: ${q.section}\nSubject: ${q.subject}\nOptions:\n${optionsWithLabels}\nResult: ${
           userAnswer.length === 0
             ? "⚠️ Skipped"
             : isCorrect
             ? "✅ Correct"
             : "❌ Incorrect"
-        }${q.explanation ? `\n\n**Explanation:** ${q.explanation}` : ""}`;
+        }${q.explanation ? `\nExplanation: ${q.explanation.replace(/\\n/g, "\n")}` : ""}`;
       })
       .join("\n\n---\n\n");
 
-    navigator.clipboard.writeText(markdown);
-    alert("Result copied as markdown!");
+    navigator.clipboard.writeText(chatGptPrompt + markdown + "\n```");
+    alert("Result with ChatGPT prompt copied to clipboard!");
   };
 
   return (
@@ -157,7 +163,10 @@ export default function ResultPage() {
               className="p-4 border rounded-md shadow-sm bg-white print:border-none print:shadow-none"
             >
               <h2 className="font-medium">
-                <ReactMarkdown rehypePlugins={[rehypeKatex]} remarkPlugins={[remarkMath]}>
+                <ReactMarkdown
+                  rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
+                  remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]} // Add remark-breaks for line breaks
+                >
                   {q.question}
                 </ReactMarkdown>
               </h2>
@@ -192,8 +201,11 @@ export default function ResultPage() {
               {q.explanation && (
                 <div className="mt-4">
                   <strong>Explanation:</strong>
-                  <ReactMarkdown rehypePlugins={[rehypeKatex]} remarkPlugins={[remarkMath]}>
-                    {q.explanation}
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
+                    remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]} // Add remark-breaks for line breaks
+                  >
+                    {q.explanation.replace(/\\n/g, "\n")}
                   </ReactMarkdown>
                 </div>
               )}
@@ -203,9 +215,9 @@ export default function ResultPage() {
       </div>
       <button
         className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        onClick={copyAsMarkdown}
+        onClick={copyAsMarkdownWithPrompt}
       >
-        Copy this result as markdown
+        Copy for ChatGPT
       </button>
       <Link href="/" className="mt-4 text-blue-500 hover:underline text-center">
         Go back to the homepage

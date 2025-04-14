@@ -3,7 +3,8 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
-import remarkGfm from "remark-gfm"; // Add support for GitHub-flavored markdown
+import remarkGfm from "remark-gfm"; // Ensure this import exists
+import remarkBreaks from "remark-breaks"; // Import remark-breaks for handling line breaks
 import "katex/dist/katex.min.css";
 
 export default function QuestionCard({
@@ -55,10 +56,10 @@ export default function QuestionCard({
       </div>
       <h2 className="font-medium mb-4">
         <ReactMarkdown
-          rehypePlugins={[rehypeKatex]}
-          remarkPlugins={[remarkMath, remarkGfm]} // Ensure both math and markdown plugins are included
+          rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
+          remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]} // Add remark-breaks for line breaks
         >
-          {question.question}
+          {question.question.replace(/\\n/g, "\n")} 
         </ReactMarkdown>
       </h2>
       <ul className="list-none">
@@ -66,17 +67,17 @@ export default function QuestionCard({
           <li key={index} className="mb-2">
             <label className="flex items-center gap-2">
               <input
-                type={question.isMultipleChoice ? "checkbox" : "radio"}
-                name={`question-${question.question}`}
+                type={question.isMultipleChoice ? "checkbox" : "radio"} // Use checkbox for multi-choice
+                name={`question-${currentQuestion}`}
                 value={option}
                 checked={selectedOptions.includes(option)}
                 onChange={() => handleOptionChange(option)}
               />
               <ReactMarkdown
-                rehypePlugins={[rehypeKatex]}
-                remarkPlugins={[remarkMath, remarkGfm]}
+                rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
+                remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]} // Add remark-breaks for line breaks
               >
-                {`${String.fromCharCode(65 + index)}. ${option}`}
+                {`${String.fromCharCode(65 + index)}. ${option.replace(/\\n/g, "\n")}`} 
               </ReactMarkdown>
             </label>
           </li>
