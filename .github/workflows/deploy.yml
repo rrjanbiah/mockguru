@@ -22,10 +22,9 @@ jobs:
         run: |
           npm install   # Install the dependencies
 
-      - name: Build and export the Next.js app
+      - name: Build the Next.js app
         run: |
           npm run build   # Build the Next.js app
-          npm run export   # Export the app as static files to 'out/'
 
       - name: Add .nojekyll to prevent Jekyll interference
         run: |
@@ -35,5 +34,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4 # Action to deploy to GitHub Pages
         with:
           branch: gh-pages # The target branch for GitHub Pages
-          folder: out # The folder to deploy (from 'next export')
+          folder: out # The folder to deploy (from `output: export` in next.config.ts)
           token: ${{ secrets.GITHUB_TOKEN }} # GitHub token for authentication

@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "export": "next export",
     "start": "next start",
     "lint": "next lint --max-warnings=0 && tsc --noEmit"
   },
