@@ -110,11 +110,11 @@ export default function TestPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png" />
+        <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+        <link rel="manifest" href="../site.webmanifest" />
         <meta property="og:image" content={`${process.env.SITE_URL}/img/og-image.png`} />
         <meta property="og:title" content="Test | MockGuru" /> {/* Updated for better SEO */}
         <meta property="og:description" content="Take your MockGuru mock test and track your progress for JEE, NEET, UPSC, and more." /> {/* Updated */}

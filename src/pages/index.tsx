@@ -60,11 +60,11 @@ export default function IndexPage({ exams }: { exams: Exam[] }) {
   return (
     <div className="min-h-screen p-8 flex flex-col gap-8">
       <Head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png" />
+        <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+        <link rel="manifest" href="./site.webmanifest" />
         <meta property="og:image" content={`${process.env.SITE_URL}/img/og-image.png`} />
         <meta property="og:title" content="MockGuru - Smart Exam Prep" />
         <meta property="og:description" content="AI-powered mock tests for JEE, NEET, UPSC, and more" />
