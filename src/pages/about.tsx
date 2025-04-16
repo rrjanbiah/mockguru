@@ -1,7 +1,17 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRef } from "react";
 
 export default function AboutPage() {
+  const promptRef = useRef<HTMLPreElement>(null);
+
+  const handleCopy = () => {
+    if (promptRef.current) {
+      navigator.clipboard.writeText(promptRef.current.innerText);
+      alert("Prompt copied to clipboard!");
+    }
+  };
+
   return (
     <div className="min-h-screen p-8 flex flex-col gap-8 bg-white dark:bg-gray-900 text-black dark:text-white">
       <Head>
@@ -44,8 +54,18 @@ export default function AboutPage() {
         </li>
       </ol>
       <h2 className="text-2xl font-bold mt-4">Sample Prompt for Generating Questions</h2>
-      <pre className="bg-gray-100 dark:bg-gray-800 text-black dark:text-white p-4 rounded-md text-sm overflow-x-auto">
-        {`Act as an expert question paper setter for competitive exams. Based on the official syllabus, past year papers, and important exam-relevant concepts, generate high-quality multiple-choice questions (MCQs) with detailed explanations.
+      <div className="relative">
+        <button
+          onClick={handleCopy}
+          className="absolute top-0 right-0 px-2 py-1 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer"
+        >
+          Copy
+        </button>
+        <pre
+          ref={promptRef}
+          className="bg-gray-100 dark:bg-gray-800 text-black dark:text-white p-4 rounded-md text-sm overflow-x-auto"
+        >
+          {`Act as an expert question paper setter for competitive exams. Based on the official syllabus, past year papers, and important exam-relevant concepts, generate high-quality multiple-choice questions (MCQs) with detailed explanations.
 
 Instructions:
 - Follow this CSV format:
@@ -64,7 +84,8 @@ Inputs:
 - Exam: [EXAM]
 - Subject: [SUBJECT]
 - Number of questions: 10`}
-      </pre>
+        </pre>
+      </div>
       <h2 className="text-2xl font-bold mt-4">Copy for ChatGPT</h2>
       <p className="text-lg">
         After completing the exam, use the &quot;Copy for ChatGPT&quot; button on the result page to copy your performance data. Paste this data into ChatGPT to get a detailed analysis of your strengths and weaknesses, along with actionable recommendations for improvement.
