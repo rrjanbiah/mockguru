@@ -5,11 +5,21 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen p-8 flex flex-col gap-8">
       <Head>
-        <title>About | MockGuru</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta property="og:image" content={`${process.env.SITE_URL}/img/og-image.png`} />
+        <meta property="og:title" content="About | MockGuru" /> {/* Updated for better SEO */}
+        <meta property="og:description" content="Learn more about MockGuru, the AI-powered mock test platform for JEE, NEET, UPSC, and more." /> {/* Updated */}
+        <meta property="og:url" content={process.env.SITE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <title>About | MockGuru</title> {/* Updated */}
       </Head>
       <header className="flex justify-between items-center mb-8">
         <Link href="/" className="text-blue-500 hover:underline">
-        <h1 className="text-3xl font-bold">MockGuru</h1>
+          <h1 className="text-3xl font-bold">MockGuru</h1>
         </Link>
       </header>
       <p className="text-lg">
