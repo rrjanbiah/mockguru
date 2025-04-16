@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
   assetPrefix: GITHUB_ACTIONS ? `/${repoName}/` : '', // Set assetPrefix for GitHub Pages
   trailingSlash: true, // Good practice for static export
   env: {
-    SITE_URL: homepage || 'http://localhost:3000',
+    SITE_URL: GITHUB_ACTIONS ? homepage : 'http://localhost:3000',
   },
 };
 
