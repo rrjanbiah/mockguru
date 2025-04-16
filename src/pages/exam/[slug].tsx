@@ -15,18 +15,18 @@ export default function ExamPage({
   frontmatter: { title: string; description: string };
 }) {
   return (
-    <div className="min-h-screen">
-      <header className="bg-blue-500 text-white p-4">
-          <Link href="/" className="text-xl font-bold hover:underline">
-            MockGuru
-          </Link>
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
+      <header className="bg-blue-500 dark:bg-blue-600 text-white p-4">
+        <Link href="/" className="text-xl font-bold hover:underline">
+          MockGuru
+        </Link>
       </header>
-      <div className="p-8 bg-gray-50">
+      <div className="p-8 bg-gray-50 dark:bg-gray-800">
         <Head>
           <title>{frontmatter.title}</title>
           <meta name="description" content={frontmatter.description} />
         </Head>
-        <article className="prose prose-lg max-w-none mx-auto">
+        <article className="prose prose-lg dark:prose-invert max-w-none mx-auto">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown> {/* Ensure remark-gfm is used */}
         </article>
       </div>

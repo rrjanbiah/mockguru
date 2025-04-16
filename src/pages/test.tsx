@@ -127,17 +127,19 @@ export default function TestPage() {
           <Timer duration={config.timerDuration} onTimerEnd={handleTimerEnd} />
         </div>
       )}
-      <div className="flex-1 p-8">{renderQuestions()}</div>
+      <div className="flex-1 p-8 bg-white dark:bg-gray-900 text-black dark:text-white">
+        {renderQuestions()}
+      </div>
       <div className="flex justify-between p-4">
         <button
-          className="px-4 py-2 bg-gray-300 rounded-md cursor-pointer"
+          className="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded-md cursor-pointer"
           onClick={handlePrevious}
           disabled={currentPage === 0}
         >
           Previous
         </button>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer"
+          className="px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded-md cursor-pointer"
           onClick={handleNext}
         >
           Next

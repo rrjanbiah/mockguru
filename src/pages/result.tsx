@@ -109,7 +109,7 @@ export default function ResultPage() {
   };
 
   return (
-    <div className="min-h-screen p-8 flex flex-col gap-8">
+    <div className="min-h-screen p-8 flex flex-col gap-8 bg-white dark:bg-gray-900 text-black dark:text-white">
       <Head>
         <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
@@ -125,7 +125,7 @@ export default function ResultPage() {
       </Head>
       <h1 className="text-2xl font-bold">Test Results</h1>
       {/* Scoring Section */}
-      <div className="p-4 bg-gray-100 rounded-md shadow-sm">
+      <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-md shadow-sm">
         <h2 className="text-2xl font-bold mb-2">Score</h2>
         <p className="text-lg">
           You answered <strong>{correctAnswersCount}</strong> out of{" "}
@@ -170,7 +170,7 @@ export default function ResultPage() {
           return (
             <div
               key={index}
-              className="p-4 border rounded-md shadow-sm bg-white print:border-none print:shadow-none"
+              className="p-4 border rounded-md shadow-sm bg-white dark:bg-gray-800 text-black dark:text-white print:border-none print:shadow-none"
             >
               <h2 className="font-medium">
                 <ReactMarkdown
@@ -186,10 +186,10 @@ export default function ResultPage() {
                     key={optIndex}
                     className={`p-2 rounded-md ${
                       correctAnswerTexts.includes(option)
-                        ? "bg-green-100 text-green-800"
+                        ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" // Improved for dark mode
                         : userAnswer.includes(option)
-                        ? "bg-red-100 text-red-800"
-                        : "bg-gray-100"
+                        ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300" // Improved for dark mode
+                        : "bg-gray-100 text-black dark:bg-gray-800 dark:text-gray-300" // Improved for dark mode
                     }`}
                   >
                     <ReactMarkdown rehypePlugins={[rehypeKatex]} remarkPlugins={[remarkMath]}>

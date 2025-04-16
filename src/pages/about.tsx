@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen p-8 flex flex-col gap-8">
+    <div className="min-h-screen p-8 flex flex-col gap-8 bg-white dark:bg-gray-900 text-black dark:text-white">
       <Head>
         <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
@@ -18,7 +18,7 @@ export default function AboutPage() {
         <title>About | MockGuru</title> {/* Updated */}
       </Head>
       <header className="flex justify-between items-center mb-8">
-        <Link href="/" className="text-blue-500 hover:underline">
+        <Link href="/" className="text-blue-500 dark:text-blue-400 hover:underline">
           <h1 className="text-3xl font-bold">MockGuru</h1>
         </Link>
       </header>
@@ -44,7 +44,7 @@ export default function AboutPage() {
         </li>
       </ol>
       <h2 className="text-2xl font-bold mt-4">Sample Prompt for Generating Questions</h2>
-      <pre className="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto">
+      <pre className="bg-gray-100 dark:bg-gray-800 text-black dark:text-white p-4 rounded-md text-sm overflow-x-auto">
         {`Act as an expert question paper setter for competitive exams. Based on the official syllabus, past year papers, and important exam-relevant concepts, generate high-quality multiple-choice questions (MCQs) with detailed explanations.
 
 Instructions:

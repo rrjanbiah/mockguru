@@ -66,7 +66,7 @@ export default function QuestionCard({
         {question.options.map((option, index) => (
           <li
             key={index}
-            className="mb-4 p-2 rounded-md hover:bg-gray-200 cursor-pointer transition-colors" // Added spacing, hover effect, and hand cursor
+            className="mb-4 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors" // Improved hover background for dark mode
           >
             <label className="flex items-center gap-2">
               <input
@@ -75,6 +75,7 @@ export default function QuestionCard({
                 value={option}
                 checked={selectedOptions.includes(option)}
                 onChange={() => handleOptionChange(option)}
+                className="cursor-pointer hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-gray-900 text-black dark:text-white" // Improved hover and background styles
               />
               <ReactMarkdown
                 rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering

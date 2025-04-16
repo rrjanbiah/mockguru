@@ -124,10 +124,10 @@ export default function IndexPage({ exams }: { exams: Exam[] }) {
       <ul className="list-disc pl-6">
         {exams.map((exam) => (
           <li key={exam.slug} className="mb-2">
-            <Link href={`/exam/${exam.slug}`} className="text-blue-500 hover:underline">
+            <Link href={`/exam/${exam.slug}`} className="text-blue-500 dark:text-blue-400 hover:underline">
               {exam.title}
             </Link>
-            <p className="text-sm text-gray-600">{exam.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{exam.description}</p> {/* Improved contrast */}
           </li>
         ))}
       </ul>
