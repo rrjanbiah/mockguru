@@ -23,8 +23,17 @@ export default function ExamPage({
       </header>
       <div className="p-8 bg-gray-50 dark:bg-gray-800">
         <Head>
-          <title>{frontmatter.title}</title>
-          <meta name="description" content={frontmatter.description} />
+          <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+          <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+          <link rel="manifest" href="/site.webmanifest" />
+          <meta property="og:image" content={`${process.env.SITE_URL}/img/og-image.png`} />
+          <meta property="og:title" content={`${frontmatter.title} | MockGuru`} /> {/* Updated for SEO */}
+          <meta property="og:description" content={frontmatter.description} /> {/* Updated */}
+          <meta property="og:url" content={process.env.SITE_URL} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <title>{`${frontmatter.title} | MockGuru`}</title> {/* Updated */}
         </Head>
         <article className="prose prose-lg dark:prose-invert max-w-none mx-auto">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown> {/* Ensure remark-gfm is used */}
