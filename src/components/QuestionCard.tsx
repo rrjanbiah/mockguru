@@ -66,16 +66,18 @@ export default function QuestionCard({
         {question.options.map((option, index) => (
           <li
             key={index}
-            className="mb-4 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors" // Improved hover background for dark mode
+            className="mb-4 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" // Highlight area
           >
-            <label className="flex items-center gap-2">
+            <label
+              className="flex items-center gap-2 cursor-pointer w-full h-full" // Ensure label covers the entire area and triggers hand cursor
+            >
               <input
-                type={question.isMultipleChoice ? "checkbox" : "radio"} // Use checkbox for multi-choice
+                type={question.isMultipleChoice ? "checkbox" : "radio"}
                 name={`question-${currentQuestion}`}
                 value={option}
                 checked={selectedOptions.includes(option)}
                 onChange={() => handleOptionChange(option)}
-                className="cursor-pointer hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-gray-900 text-black dark:text-white" // Improved hover and background styles
+                className="cursor-pointer hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-gray-900 text-black dark:text-white"
               />
               <ReactMarkdown
                 rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
