@@ -173,6 +173,7 @@ export default function ResultPage() {
               className="p-4 border rounded-md shadow-sm bg-white dark:bg-gray-800 text-black dark:text-white print:border-none print:shadow-none"
             >
               <h2 className="font-medium">
+                <span className="font-bold">Q{index + 1}:</span>{" "} {/* Added question number */}
                 <ReactMarkdown
                   rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
                   remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]} // Add remark-breaks for line breaks

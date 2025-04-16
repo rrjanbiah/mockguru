@@ -65,25 +65,39 @@ export default function AboutPage() {
           ref={promptRef}
           className="bg-gray-100 dark:bg-gray-800 text-black dark:text-white p-4 rounded-md text-sm overflow-x-auto"
         >
-          {`Act as an expert question paper setter for competitive exams. Based on the official syllabus, past year papers, and important exam-relevant concepts, generate high-quality multiple-choice questions (MCQs) with detailed explanations.
+          {`Act as an expert question paper setter for competitive exams. Use the **official syllabus**, **previous year papers**, **question banks**, and key **exam-relevant concepts** to generate **high-quality** multiple-choice questions (MCQs) with **detailed explanations**.
 
-Instructions:
-- Follow this CSV format:
-exam,section,subject,question,option_a,option_b,option_c,option_d,correct_option,explanation
-[EXAM],[TOPIC],[SUBJECT],"Your question here","Option A","Option B","Option C","Option D","Correct Option","Explanation with key concepts, steps, and formulas. Use \\n to separate each line of explanation for better readability."
+📝 Output Format:
+Return the questions in valid **CSV format**, structured as follows:
+exam,section,subject,question,option_a,option_b,option_c,option_d,correct_option,explanation  
+[EXAM],[TOPIC],[SUBJECT],"Your question here","Option A","Option B","Option C","Option D","Correct Option","Detailed explanation with concepts, logic, and formulas. Use \\n to separate each line."
 
-Requirements:
-- Use **GitHub-flavored markdown** (e.g., \`**bold**\`) in questions and explanations.
-- Use **KaTeX-style math notation** (e.g., \`$x^2 + y^2 = z^2$\`) for mathematical expressions.
-- All questions should be of **moderate to slightly challenging** difficulty, aligned with the real exam style.
-- Format answers for:
-  - Single correct: use \`A\`, \`B\`, etc.
-  - Multi-correct: use \`A,B\` or \`B,C,D\` etc.
+📌 Formatting and Content Guidelines:
+- Use **GitHub-flavored Markdown** (e.g., \`**bold**\` for emphasis) in both *questions* and *explanations*.
+- Use **KaTeX-style math notation** (e.g., \`$x^2 + y^2 = z^2$\`) for all mathematical expressions.
+- Questions should reflect **moderate to challenging** difficulty and closely follow real exam patterns.
+- Provide detailed explanations that include:
+  - Step-by-step solution
+  - Underlying concepts
+  - Common traps or misconceptions
+  - Relevant formulas
+- 📌 Reading Comprehension Requirement:
+  - If the section is Reading Comprehension, include the full passage followed by the question, clearly separated.
+- Correct answer formats:
+  - For **single correct**: \`A\`, \`B\`, \`C\`, or \`D\`
+  - For **multi-correct**: \`A,B\` or \`B,C,D\` (comma-separated)
 
-Inputs:
+✅ Quality Checklist:
+- **Ensure all answer choices and explanations are accurate.**
+- **Ensure the CSV is correctly formatted and not malformed.**
+- **Avoid duplicate or vague options.**
+
+🔽 Inputs:
 - Exam: [EXAM]
 - Subject: [SUBJECT]
-- Number of questions: 10`}
+- Number of questions: 10
+
+Begin generating the MCQs now.`}
         </pre>
       </div>
       <h2 className="text-2xl font-bold mt-4">Copy for ChatGPT</h2>
