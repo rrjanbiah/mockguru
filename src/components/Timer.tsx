@@ -31,7 +31,7 @@ export default function Timer({
   };
 
   return (
-    <div className="p-4 bg-gray-100 dark:bg-gray-800 text-center font-bold text-black dark:text-white"> {/* Improved for dark mode */}
+    <div className="p-4 bg-gray-100 dark:bg-gray-800 text-center font-bold text-black dark:text-white">
       Time Left: {formatTime(timeLeft)}
     </div>
   );

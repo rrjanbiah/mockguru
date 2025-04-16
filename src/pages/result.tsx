@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
-import remarkGfm from "remark-gfm"; // Add this import for GitHub-flavored markdown
-import remarkBreaks from "remark-breaks"; // Import remark-breaks for handling line breaks
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 import "katex/dist/katex.min.css";
 import { Question } from "@/utils/types";
 import Link from "next/link";
@@ -19,9 +19,8 @@ export default function ResultPage() {
     const localData = localStorage.getItem("testResult");
     if (localData) {
       const parsedData = JSON.parse(localData);
-      console.log("Parsed Questions:", parsedData.questions); // Debug: Log parsed questions
       setQuestions(parsedData.questions);
-      setUserAnswers(parsedData.userAnswers || {}); // Ensure userAnswers is initialized
+      setUserAnswers(parsedData.userAnswers || {});
     } else {
       alert("No result data found. Redirecting to home.");
       router.push("/");
@@ -29,15 +28,15 @@ export default function ResultPage() {
   }, [router]);
 
   const correctAnswersCount = questions.filter((q, index) => {
-    const userAnswer = userAnswers[index] || []; // Default to empty array for skipped questions
+    const userAnswer = userAnswers[index] || [];
     const correctAnswerTexts = q.correctOptions.map(
       (opt) => q.options[opt.charCodeAt(0) - 65]
     );
 
     return (
-      userAnswer.length > 0 && // Ensure the question was answered
-      correctAnswerTexts.every((text) => userAnswer.includes(text)) && // Check if all correct options are selected
-      userAnswer.length === correctAnswerTexts.length // Ensure no extra options are selected
+      userAnswer.length > 0 &&
+      correctAnswerTexts.every((text) => userAnswer.includes(text)) &&
+      userAnswer.length === correctAnswerTexts.length
     );
   }).length;
 
@@ -76,12 +75,12 @@ export default function ResultPage() {
 
     const markdown = questions
       .map((q, index) => {
-        const userAnswer = userAnswers[index] || []; // Default to empty array for skipped questions
+        const userAnswer = userAnswers[index] || [];
         const correctAnswerTexts = q.correctOptions.map(
           (opt) => q.options[opt.charCodeAt(0) - 65]
         );
         const isCorrect =
-          userAnswer.length > 0 && // Ensure the question was answered
+          userAnswer.length > 0 &&
           correctAnswerTexts.every((text) => userAnswer.includes(text)) &&
           userAnswer.length === correctAnswerTexts.length;
 
@@ -117,14 +116,13 @@ export default function ResultPage() {
         <link rel="icon" type="image/x-icon" href="../favicon.ico" />
         <link rel="manifest" href="../site.webmanifest" />
         <meta property="og:image" content={`${process.env.SITE_URL}/img/og-image.png`} />
-        <meta property="og:title" content="Results | MockGuru" /> {/* Updated for better SEO */}
-        <meta property="og:description" content="View your MockGuru test results and analyze your performance for JEE, NEET, UPSC, and more." /> {/* Updated */}
+        <meta property="og:title" content="Results | MockGuru" />
+        <meta property="og:description" content="View your MockGuru test results and analyze your performance for JEE, NEET, UPSC, and more." />
         <meta property="og:url" content={process.env.SITE_URL} />
         <meta name="twitter:card" content="summary_large_image" />
-        <title>Results | MockGuru</title> {/* Updated */}
+        <title>Results | MockGuru</title>
       </Head>
       <h1 className="text-2xl font-bold">Test Results</h1>
-      {/* Scoring Section */}
       <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-md shadow-sm">
         <h2 className="text-2xl font-bold mb-2">Score</h2>
         <p className="text-lg">
@@ -158,12 +156,12 @@ export default function ResultPage() {
       </div>
       <div className="flex flex-col gap-4">
         {questions.map((q, index) => {
-          const userAnswer = userAnswers[index] || []; // Default to empty array for skipped questions
+          const userAnswer = userAnswers[index] || [];
           const correctAnswerTexts = q.correctOptions.map(
             (opt) => q.options[opt.charCodeAt(0) - 65]
           );
           const isCorrect =
-            userAnswer.length > 0 && // Ensure the question was answered
+            userAnswer.length > 0 &&
             correctAnswerTexts.every((text) => userAnswer.includes(text)) &&
             userAnswer.length === correctAnswerTexts.length;
 
@@ -173,10 +171,10 @@ export default function ResultPage() {
               className="p-4 border rounded-md shadow-sm bg-white dark:bg-gray-800 text-black dark:text-white print:border-none print:shadow-none"
             >
               <h2 className="font-medium">
-                <span className="font-bold">Q{index + 1}:</span>{" "} {/* Added question number */}
+                <span className="font-bold">Q{index + 1}:</span>{" "}
                 <ReactMarkdown
-                  rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
-                  remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]} // Add remark-breaks for line breaks
+                  rehypePlugins={[rehypeKatex]}
+                  remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]}
                 >
                   {q.question}
                 </ReactMarkdown>
@@ -187,10 +185,10 @@ export default function ResultPage() {
                     key={optIndex}
                     className={`p-2 rounded-md ${
                       correctAnswerTexts.includes(option)
-                        ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" // Improved for dark mode
+                        ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
                         : userAnswer.includes(option)
-                        ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300" // Improved for dark mode
-                        : "bg-gray-100 text-black dark:bg-gray-800 dark:text-gray-300" // Improved for dark mode
+                        ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+                        : "bg-gray-100 text-black dark:bg-gray-800 dark:text-gray-300"
                     }`}
                   >
                     <ReactMarkdown rehypePlugins={[rehypeKatex]} remarkPlugins={[remarkMath]}>
@@ -213,8 +211,8 @@ export default function ResultPage() {
                 <div className="mt-4">
                   <strong>Explanation:</strong>
                   <ReactMarkdown
-                    rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
-                    remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]} // Add remark-breaks for line breaks
+                    rehypePlugins={[rehypeKatex]}
+                    remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]}
                   >
                     {q.explanation.replace(/\\n/g, "\n")}
                   </ReactMarkdown>
@@ -225,7 +223,7 @@ export default function ResultPage() {
         })}
       </div>
       <button
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer" // Added cursor-pointer
+        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer"
         onClick={copyAsMarkdownWithPrompt}
       >
         Copy for ChatGPT

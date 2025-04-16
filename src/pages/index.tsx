@@ -127,7 +127,7 @@ export default function IndexPage({ exams }: { exams: Exam[] }) {
             <Link href={`/exam/${exam.slug}`} className="text-blue-500 dark:text-blue-400 hover:underline">
               {exam.title}
             </Link>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{exam.description}</p> {/* Improved contrast */}
+            <p className="text-sm text-gray-600 dark:text-gray-400">{exam.description}</p>
           </li>
         ))}
       </ul>

@@ -3,8 +3,8 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
-import remarkGfm from "remark-gfm"; // Ensure this import exists
-import remarkBreaks from "remark-breaks"; // Import remark-breaks for handling line breaks
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 import "katex/dist/katex.min.css";
 
 export default function QuestionCard({
@@ -56,8 +56,8 @@ export default function QuestionCard({
       </div>
       <h2 className="font-medium mb-4">
         <ReactMarkdown
-          rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
-          remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]} // Add remark-breaks for line breaks
+          rehypePlugins={[rehypeKatex]}
+          remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]}
         >
           {question.question.replace(/\\n/g, "\n")} 
         </ReactMarkdown>
@@ -66,10 +66,10 @@ export default function QuestionCard({
         {question.options.map((option, index) => (
           <li
             key={index}
-            className="mb-4 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" // Highlight area
+            className="mb-4 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
           >
             <label
-              className="flex items-center gap-2 cursor-pointer w-full h-full" // Ensure label covers the entire area and triggers hand cursor
+              className="flex items-center gap-2 cursor-pointer w-full h-full"
             >
               <input
                 type={question.isMultipleChoice ? "checkbox" : "radio"}
@@ -80,8 +80,8 @@ export default function QuestionCard({
                 className="cursor-pointer hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-gray-900 text-black dark:text-white"
               />
               <ReactMarkdown
-                rehypePlugins={[rehypeKatex]} // rehype-katex must be included for math rendering
-                remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]} // Add remark-breaks for line breaks
+                rehypePlugins={[rehypeKatex]}
+                remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]}
               >
                 {`${String.fromCharCode(65 + index)}. ${option.replace(/\\n/g, "\n")}`} 
               </ReactMarkdown>

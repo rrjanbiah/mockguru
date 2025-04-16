@@ -116,11 +116,11 @@ export default function TestPage() {
         <link rel="icon" type="image/x-icon" href="../favicon.ico" />
         <link rel="manifest" href="../site.webmanifest" />
         <meta property="og:image" content={`${process.env.SITE_URL}/img/og-image.png`} />
-        <meta property="og:title" content="Test | MockGuru" /> {/* Updated for better SEO */}
-        <meta property="og:description" content="Take your MockGuru mock test and track your progress for JEE, NEET, UPSC, and more." /> {/* Updated */}
+        <meta property="og:title" content="Test | MockGuru" />
+        <meta property="og:description" content="Take your MockGuru mock test and track your progress for JEE, NEET, UPSC, and more." />
         <meta property="og:url" content={process.env.SITE_URL} />
         <meta name="twitter:card" content="summary_large_image" />
-        <title>Test | MockGuru</title> {/* Updated */}
+        <title>Test | MockGuru</title>
       </Head>
       {config?.timer && (
         <div className="sticky top-0 bg-white shadow-md z-10">

@@ -21,11 +21,11 @@ export default function AboutPage() {
         <link rel="icon" type="image/x-icon" href="../favicon.ico" />
         <link rel="manifest" href="../site.webmanifest" />
         <meta property="og:image" content={`${process.env.SITE_URL}/img/og-image.png`} />
-        <meta property="og:title" content="About | MockGuru" /> {/* Updated for better SEO */}
-        <meta property="og:description" content="Learn more about MockGuru, the AI-powered mock test platform for JEE, NEET, UPSC, and more." /> {/* Updated */}
+        <meta property="og:title" content="About | MockGuru" />
+        <meta property="og:description" content="Learn more about MockGuru, the AI-powered mock test platform for JEE, NEET, UPSC, and more." />
         <meta property="og:url" content={process.env.SITE_URL} />
         <meta name="twitter:card" content="summary_large_image" />
-        <title>About | MockGuru</title> {/* Updated */}
+        <title>About | MockGuru</title>
       </Head>
       <header className="flex justify-between items-center mb-8">
         <Link href="/" className="text-blue-500 dark:text-blue-400 hover:underline">
