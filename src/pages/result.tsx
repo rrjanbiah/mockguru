@@ -162,9 +162,9 @@ export default function ResultPage() {
           );
           const isCorrect =
             userAnswer.length > 0 &&
-            correctAnswerTexts.every((text) => userAnswer.includes(text)) &&
-            userAnswer.length === correctAnswerTexts.length;
-
+            correctAnswerTexts.length === userAnswer.length &&
+            correctAnswerTexts.every((text) => userAnswer.includes(text));
+            
           return (
             <div
               key={index}

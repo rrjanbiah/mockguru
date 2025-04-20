@@ -1,5 +1,5 @@
 import { Question } from "@/utils/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
@@ -19,6 +19,11 @@ export default function QuestionCard({
   onAnswer?: (answer: string[]) => void;
 }) {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
+  // Reset selectedOptions when the question changes
+  useEffect(() => {
+    setSelectedOptions([]);
+  }, [question]);
 
   const handleOptionChange = (option: string) => {
     let updatedOptions = selectedOptions;
@@ -59,7 +64,7 @@ export default function QuestionCard({
           rehypePlugins={[rehypeKatex]}
           remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]}
         >
-          {question.question.replace(/\\n/g, "\n")} 
+          {question.question.replace(/\\n/g, "\n")}
         </ReactMarkdown>
       </h2>
       <ul className="list-none">
@@ -83,7 +88,7 @@ export default function QuestionCard({
                 rehypePlugins={[rehypeKatex]}
                 remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]}
               >
-                {`${String.fromCharCode(65 + index)}. ${option.replace(/\\n/g, "\n")}`} 
+                {`${String.fromCharCode(65 + index)}. ${option.replace(/\\n/g, "\n")}`}
               </ReactMarkdown>
             </label>
           </li>
