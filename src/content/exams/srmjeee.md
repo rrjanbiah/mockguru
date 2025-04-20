@@ -3,10 +3,6 @@ title: "SRMJEE Exam"
 description: "Prepare for SRMJEE 2025 (SRM Joint Engineering Entrance Exam) with our mock tests."
 ---
 
-Certainly. Below is a structured and up-to-date guide on **SRMJEE 2025** (SRM Joint Engineering Entrance Exam), suitable for direct use on a website. This includes key information such as exam pattern, syllabus, marking scheme, and a complete cheat sheet for preparation.
-
----
-
 # SRMJEE 2025: Complete Guide and Preparation Cheat Sheet
 
 ## What is SRMJEE?
