@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "katex": "^0.16.21",
-    "next": "^16.2.6",
+    "katex": "^0.16.22",
+    "next": "16.0.4",
     "papaparse": "^5.4.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.1.1",
     "react-markdown": "^10.1.0",
     "rehype-katex": "^7.0.1",
     "remark-breaks": "^4.0.0",
@@ -25,16 +25,16 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "^20",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/node": "^24",
     "@types/papaparse": "^5.3.15",
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.1.9",
     "clsx": "^2.0.0",
-    "date-fns": "^2.30.0",
+    "date-fns": "^4.1.0",
     "eslint": "^9",
-    "eslint-config-next": "15.2.4",
+    "eslint-config-next": "16.0.4",
     "tailwindcss": "^4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.3"
   }
 }

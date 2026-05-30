@@ -7,8 +7,9 @@ on:
 
 jobs:
   deploy:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
-
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2 # Check out the code from the repo
